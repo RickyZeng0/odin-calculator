@@ -5,26 +5,15 @@ const MAX_DISPLAY_LENGTH = 16;
 let input_buffer = "";
 let cal_array = [];
 
-function add(a,b){
-    return a+b;
-}
-
-function subtract(a,b){
-    return a-b;
-}
-
-function multiply(a,b){
-    return a*b;
-}
 
 function divide(a,b){
     return a/b;
 }
 
 function operate(firstNum,oneOperator,secondNum){
-    if(oneOperator == "+") return add(firstNum,secondNum);
-    else if(oneOperator == "-") return subtract(firstNum,secondNum);
-    else if(oneOperator == "*") return multiply(firstNum,secondNum);
+    if(oneOperator == "+") return firstNum + secondNum;
+    else if(oneOperator == "-") return firstNum - secondNum;
+    else if(oneOperator == "*") return firstNum * secondNum;
     else if(oneOperator == "/") return divide(firstNum,secondNum);
 }
 
