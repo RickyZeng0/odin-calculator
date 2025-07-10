@@ -88,14 +88,15 @@ function doArithmetic(operator){
         }
         //case 2 : user type the operator mutiple times at the beginning.
     }
+    //case 3 : the case after user press the equal buuton
+    else if(len == 1){
+        cal_array.push(operator);
+    }
     else if(len == 2){
         //case 4 : user enter number and operator again after case 1
         if(input_buffer){
-            cal_array.push(Number(input_buffer));
-            let result = evaluateResult();
+            evaluateAndDisplayResult();
             cal_array.push(operator);
-            input_buffer = "";
-            display.textContent = `${result}`;
             console.log(cal_array);
         }
         //case 5 : user type the operator mutiple times after case 1
@@ -106,21 +107,17 @@ function doArithmetic(operator){
     console.log(cal_array);
 }
 
-function evaluateResult(){
-    let result = operate(cal_array[0],cal_array[1],cal_array[2]);
-    clearArray();
-    cal_array.push(result);
-    return result;
+function evaluateAndDisplayResult(){
+    if(cal_array.length == 2 && input_buffer){
+        cal_array.push(Number(input_buffer));
+        let result = operate(cal_array[0],cal_array[1],cal_array[2]);
+        clearArray();
+        cal_array.push(result);
+        input_buffer = "";
+        display.textContent = `${result}`;
+    }
 }
 
-function evaluateAndDisplayResult(){
-    cal_array.push(Number(input_buffer));
-    let result = operate(cal_array[0],cal_array[1],cal_array[2]);
-    clearArray();
-    cal_array.push(result);
-    input_buffer = "";
-    display.textContent = `${result}`;
-}
 
 function main(event){
     let button = checkArithmetic(event.target.classList.value);
