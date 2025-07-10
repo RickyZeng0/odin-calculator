@@ -10,7 +10,7 @@ body {
 .calculator{
     box-sizing: border-box;
     width: 400px;
-    height: 600px;
+    height: 450px;
     background-color: black;
     padding: 20px;
 }
@@ -20,8 +20,27 @@ body {
     color: black;
     box-sizing: border-box;
     height: 100px;
-    font-size: 40px;
+    font-size: 43px;
     padding: 30px 10px 0px 10px;
+    margin-bottom: 20px;
     text-align: right;
 }
 
+.delete-clear-container{
+    display: flex;
+    justify-content: end;
+    margin: 0px 0px 10px 0px;
+    gap: 14px;
+}
+
+.digit-operator-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+button{
+    font-size: 32px;
+    width: 80px;
+}
