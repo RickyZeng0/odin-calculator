@@ -84,22 +84,34 @@ function doArithmetic(operator){
             cal_array.push(Number(input_buffer));
             cal_array.push(operator);
             input_buffer = "";
+            console.log(cal_array);
         }
+        //case 2 : user type the operator mutiple times at the beginning.
     }
     else if(len == 2){
-        //case 2 : user enter number and operator again after case 1
+        //case 3 : user enter number and operator again after case 1
         if(input_buffer){
             cal_array.push(Number(input_buffer));
-            let result = operate(cal_array[0],cal_array[1],cal_array[2]);
-            clearArray();
-            cal_array.push(result);
+            let result = evaluateResult();
             cal_array.push(operator);
             input_buffer = "";
+            display.textContent = `${result}`;
+            console.log(cal_array);
+        }
+        //case 4 : user type the operator mutiple times after case 1
+        else{
+            cal_array[1] = operator;
         }
     }
     console.log(cal_array);
 }
 
+function evaluateResult(){
+    let result = operate(cal_array[0],cal_array[1],cal_array[2]);
+    clearArray();
+    cal_array.push(result);
+    return result;
+}
 
 function main(event){
     let button = checkArithmetic(event.target.classList.value);
