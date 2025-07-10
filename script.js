@@ -46,18 +46,49 @@ function removeBufferAndDisplay(){
     }
 }
 
+function checkArithmetic(classValue){
+    obj = {
+        isArithmetic : false,
+        type : classValue,
+    }
+    if(classValue == "divides") {
+        obj.type = "/"; 
+        obj.result = true;
+    }    
+    if(classValue == "times") {
+        obj.type = "*"; 
+        obj.result = true;
+    }   
+    if(classValue == "adds") {
+        obj.type = "+"; 
+        obj.result = true;
+    }   
+    if(classValue == "subtracts") {
+        obj.type = "-";
+        obj.result = true;
+    } 
+    return obj;
+}
+
+function doArithmetic(operator){
+    let len = cal_array.length;
+    if(len == 0){
+
+    }
+}
+
 
 function main(event){
-    let buttonType = event.target.classList.value;
-    if(buttonType == "digit"){
+    let button = checkArithmetic(event.target.classList.value);
+    if(button.type == "digit"){
         if(isValidDisplayLength()) addBufferAndDisplay(event);
         
     }
-    else if(buttonType == "deletes"){
+    else if(button.type == "deletes"){
         removeBufferAndDisplay();
     }
-    else if(buttonType == "divides" || buttonType == "times" || buttonType == "adds" || buttonType == "subtracts"){
-
+    else if(button.isArithmetic){
+        doArithmetic(button.type);
     }
     console.log(input_buffer);
 }
