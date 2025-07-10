@@ -100,6 +100,10 @@ function doArithmetic(operator){
     }
     //case 3 : the case after user press the equal buuton
     else if(len == 1){
+        if(input_buffer) {
+            cal_array[0] = Number(input_buffer);
+            input_buffer = "";
+        } 
         cal_array.push(operator);
     }
     else if(len == 2){
