@@ -143,16 +143,13 @@ function main(event){
         removeBufferAndDisplay();
     }
     else if(button.type == "clears"){
-        clearArray();
-        input_buffer = "";
-        display.textContent = "";
+        restartCal();
     }
     else if(button.isArithmetic){
         doArithmetic(button.type);
     }
     else if(button.type == "equals"){
         evaluateAndDisplayResult();
-
     }
     console.log(cal_array);
 }
