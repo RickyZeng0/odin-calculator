@@ -27,7 +27,7 @@ function operate(firstNum,oneOperator,secondNum){
     else if(oneOperator == "/") return divide(firstNum,secondNum);
 }
 
-function updateBufferAndDisplay(event){
+function addBufferAndDisplay(event){
     input_buffer += event.target.textContent;
     display.textContent = input_buffer;
 }
@@ -38,16 +38,27 @@ function isValidDisplayLength(){
     return false;
 }
 
+//only remove the last char if the string is not empty
+function removeBufferAndDisplay(){
+    if(input_buffer){
+        input_buffer = input_buffer.slice(0, input_buffer.length-1);
+        display.textContent = input_buffer;
+    }
+}
+
 function main(event){
     let buttonType = event.target.classList.value;
     if(buttonType == "digit"){
-        if(isValidDisplayLength()) updateBufferAndDisplay(event);
+        if(isValidDisplayLength()) addBufferAndDisplay(event);
         
+    }
+    else if(buttonType == "deletes"){
+        removeBufferAndDisplay();
     }
     else if(buttonType == "divides" || buttonType == "times" || buttonType == "adds" || buttonType == "subtracts"){
 
     }
-    console.log(buttonType, typeof buttonType)
+    console.log(input_buffer);
 }
 
 buttonContainer.addEventListener("click",main);
