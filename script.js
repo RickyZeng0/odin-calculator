@@ -2,7 +2,7 @@ let num1 , operator , num2 ;
 const buttonContainer = document.querySelector(".button-container");
 const display = document.querySelector(".display");
 let input_buffer = "";
-let cal_array = [null,null,null];
+let cal_array = [];
 
 function add(a,b){
     return a+b;
@@ -44,13 +44,6 @@ function removeBufferAndDisplay(){
         input_buffer = input_buffer.slice(0, input_buffer.length-1);
         display.textContent = input_buffer;
     }
-}
-
-function getArrayNo(){
-    return cal_array.reduce( (sum,element) => {
-        if(element !== null) return sum + 1;
-        else return sum;
-    } ,0)
 }
 
 
