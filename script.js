@@ -1,6 +1,7 @@
 let num1 , operator , num2 ;
 const buttonContainer = document.querySelector(".button-container");
 const display = document.querySelector(".display");
+const MAX_DISPLAY_LENGTH = 16;
 let input_buffer = "";
 let cal_array = [];
 
@@ -34,7 +35,7 @@ function addBufferAndDisplay(event){
 
 //make sure the display will not overflow by limiting the input
 function checkValidDisplayLength(){
-    if(display.textContent.length < 16) return true;
+    if(display.textContent.length < MAX_DISPLAY_LENGTH) return true;
     return false;
 }
 
@@ -126,6 +127,11 @@ function main(event){
     }
     else if(button.type == "deletes"){
         removeBufferAndDisplay();
+    }
+    else if(button.type == "clears"){
+        clearArray();
+        input_buffer = "";
+        display.textContent = "";
     }
     else if(button.isArithmetic){
         doArithmetic(button.type);
