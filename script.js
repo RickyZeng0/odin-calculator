@@ -6,15 +6,21 @@ let input_buffer = "";
 let cal_array = [];
 
 
-function divide(a,b){
-    return a/b;
+function shortenNum(number){
+    let result = String(number);
+    if(result.length > MAX_DISPLAY_LENGTH) {
+        result = result.slice(0,MAX_DISPLAY_LENGTH);
+    }
+    return Number(result);
 }
 
 function operate(firstNum,oneOperator,secondNum){
-    if(oneOperator == "+") return firstNum + secondNum;
-    else if(oneOperator == "-") return firstNum - secondNum;
-    else if(oneOperator == "*") return firstNum * secondNum;
-    else if(oneOperator == "/") return divide(firstNum,secondNum);
+    let result;
+    if(oneOperator == "+") result = firstNum + secondNum;
+    else if(oneOperator == "-") result = firstNum - secondNum;
+    else if(oneOperator == "*") result = firstNum * secondNum;
+    else if(oneOperator == "/") result = firstNum / secondNum;
+    return shortenNum(result);
 }
 
 function addBufferAndDisplay(event){
@@ -24,7 +30,7 @@ function addBufferAndDisplay(event){
 
 //make sure the display will not overflow by limiting the input
 function checkValidDisplayLength(){
-    if(display.textContent.length < MAX_DISPLAY_LENGTH) return true;
+    if(display.textContent.length <= MAX_DISPLAY_LENGTH) return true;
     return false;
 }
 
