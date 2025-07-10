@@ -83,6 +83,7 @@ function doArithmetic(operator){
         if(input_buffer){
             cal_array.push(Number(input_buffer));
             cal_array.push(operator);
+            input_buffer = "";
         }
     }
     else if(len == 2){
@@ -93,6 +94,7 @@ function doArithmetic(operator){
             clearArray();
             cal_array.push(result);
             cal_array.push(operator);
+            input_buffer = "";
         }
     }
     console.log(cal_array);
@@ -110,7 +112,7 @@ function main(event){
     else if(button.isArithmetic){
         doArithmetic(button.type);
     }
-    console.log(button.type);
+    console.log(cal_array);
 }
 
 buttonContainer.addEventListener("click",main);
