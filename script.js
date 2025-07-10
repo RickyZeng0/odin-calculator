@@ -2,7 +2,7 @@ let num1 , operator , num2 ;
 const buttonContainer = document.querySelector(".button-container");
 const display = document.querySelector(".display");
 let input_buffer = "";
-let cal_array = [1,2,3];
+let cal_array = [];
 
 function add(a,b){
     return a+b;
@@ -53,19 +53,19 @@ function checkArithmetic(classValue){
     }
     if(classValue == "divides") {
         obj.type = "/"; 
-        obj.result = true;
+        obj.isArithmetic = true;
     }    
     if(classValue == "times") {
         obj.type = "*"; 
-        obj.result = true;
+        obj.isArithmetic = true;
     }   
     if(classValue == "adds") {
         obj.type = "+"; 
-        obj.result = true;
+        obj.isArithmetic = true;
     }   
     if(classValue == "subtracts") {
         obj.type = "-";
-        obj.result = true;
+        obj.isArithmetic = true;
     } 
     return obj;
 }
@@ -79,18 +79,23 @@ function clearArray(){
 function doArithmetic(operator){
     let len = cal_array.length;
     if(len == 0){
+        //case 1: user enter number , then enter operator at the beginning.
         if(input_buffer){
             cal_array.push(Number(input_buffer));
             cal_array.push(operator);
         }
     }
     else if(len == 2){
+        //case 2 : user enter number and operator again after case 1
         if(input_buffer){
             cal_array.push(Number(input_buffer));
             let result = operate(cal_array[0],cal_array[1],cal_array[2]);
-
+            clearArray();
+            cal_array.push(result);
+            cal_array.push(operator);
         }
     }
+    console.log(cal_array);
 }
 
 
