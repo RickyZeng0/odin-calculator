@@ -14,12 +14,26 @@ function shortenNum(number){
     return Number(result);
 }
 
+function treatAndReturnMathError(){
+    alert("Math Error ! You have divide the number by 0 ! The calculator will restart");
+    restartCal();
+}
+
+function restartCal(){
+    clearArray();
+    input_buffer = "";
+    display.textContent = "";
+}
+
 function operate(firstNum,oneOperator,secondNum){
     let result;
     if(oneOperator == "+") result = firstNum + secondNum;
     else if(oneOperator == "-") result = firstNum - secondNum;
     else if(oneOperator == "*") result = firstNum * secondNum;
-    else if(oneOperator == "/") result = firstNum / secondNum;
+    else if(oneOperator == "/") {
+        if(secondNum == 0)  return undefined;
+        else result = firstNum / secondNum;
+    }
     return shortenNum(result);
 }
 
@@ -107,10 +121,15 @@ function evaluateAndDisplayResult(){
     if(cal_array.length == 2 && input_buffer){
         cal_array.push(Number(input_buffer));
         let result = operate(cal_array[0],cal_array[1],cal_array[2]);
-        clearArray();
-        cal_array.push(result);
-        input_buffer = "";
-        display.textContent = `${result}`;
+        if(result === undefined){               
+            treatAndReturnMathError();
+        }
+        else{
+            clearArray();
+            cal_array.push(result);
+            input_buffer = "";
+            display.textContent = `${result}`;           
+        }
     }
 }
 
