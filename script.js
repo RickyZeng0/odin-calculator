@@ -89,7 +89,7 @@ function doArithmetic(operator){
         //case 2 : user type the operator mutiple times at the beginning.
     }
     else if(len == 2){
-        //case 3 : user enter number and operator again after case 1
+        //case 4 : user enter number and operator again after case 1
         if(input_buffer){
             cal_array.push(Number(input_buffer));
             let result = evaluateResult();
@@ -98,7 +98,7 @@ function doArithmetic(operator){
             display.textContent = `${result}`;
             console.log(cal_array);
         }
-        //case 4 : user type the operator mutiple times after case 1
+        //case 5 : user type the operator mutiple times after case 1
         else{
             cal_array[1] = operator;
         }
@@ -113,6 +113,15 @@ function evaluateResult(){
     return result;
 }
 
+function evaluateAndDisplayResult(){
+    cal_array.push(Number(input_buffer));
+    let result = operate(cal_array[0],cal_array[1],cal_array[2]);
+    clearArray();
+    cal_array.push(result);
+    input_buffer = "";
+    display.textContent = `${result}`;
+}
+
 function main(event){
     let button = checkArithmetic(event.target.classList.value);
     if(button.type == "digit"){
@@ -123,6 +132,10 @@ function main(event){
     }
     else if(button.isArithmetic){
         doArithmetic(button.type);
+    }
+    else if(button.type == "equals"){
+        evaluateAndDisplayResult();
+
     }
     console.log(cal_array);
 }
