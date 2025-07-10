@@ -2,7 +2,7 @@ let num1 , operator , num2 ;
 const buttonContainer = document.querySelector(".button-container");
 const display = document.querySelector(".display");
 let input_buffer = "";
-let cal_array = [];
+let cal_array = [1,2,3];
 
 function add(a,b){
     return a+b;
@@ -33,7 +33,7 @@ function addBufferAndDisplay(event){
 }
 
 //make sure the display will not overflow by limiting the input
-function isValidDisplayLength(){
+function checkValidDisplayLength(){
     if(display.textContent.length < 16) return true;
     return false;
 }
@@ -70,10 +70,26 @@ function checkArithmetic(classValue){
     return obj;
 }
 
+function clearArray(){
+    while(cal_array.length > 0){
+        cal_array.pop();
+    }
+}
+
 function doArithmetic(operator){
     let len = cal_array.length;
     if(len == 0){
+        if(input_buffer){
+            cal_array.push(Number(input_buffer));
+            cal_array.push(operator);
+        }
+    }
+    else if(len == 2){
+        if(input_buffer){
+            cal_array.push(Number(input_buffer));
+            let result = operate(cal_array[0],cal_array[1],cal_array[2]);
 
+        }
     }
 }
 
@@ -81,8 +97,7 @@ function doArithmetic(operator){
 function main(event){
     let button = checkArithmetic(event.target.classList.value);
     if(button.type == "digit"){
-        if(isValidDisplayLength()) addBufferAndDisplay(event);
-        
+        if(checkValidDisplayLength()) addBufferAndDisplay(event);       
     }
     else if(button.type == "deletes"){
         removeBufferAndDisplay();
@@ -90,7 +105,7 @@ function main(event){
     else if(button.isArithmetic){
         doArithmetic(button.type);
     }
-    console.log(input_buffer);
+    console.log(button.type);
 }
 
 buttonContainer.addEventListener("click",main);
