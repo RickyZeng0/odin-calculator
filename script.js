@@ -37,6 +37,11 @@ function operate(firstNum,oneOperator,secondNum){
     return shortenNum(result);
 }
 
+function checkDecimalAbsent(){
+    if(input_buffer.indexOf(".") == -1) return true;
+    return false;
+}
+
 function addBufferAndDisplay(event){
     input_buffer += event.target.textContent;
     display.textContent = input_buffer;
@@ -142,6 +147,11 @@ function main(event){
     let button = checkArithmetic(event.target.classList.value);
     if(button.type == "digit"){
         if(checkValidDisplayLength()) addBufferAndDisplay(event);       
+    }
+    else if(button.type == "dot"){
+        if(checkDecimalAbsent()){
+            if(checkValidDisplayLength()) addBufferAndDisplay(event);
+        }
     }
     else if(button.type == "deletes"){
         removeBufferAndDisplay();
