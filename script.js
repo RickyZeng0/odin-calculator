@@ -62,29 +62,62 @@ function removeBufferAndDisplay(){
     }
 }
 
-function checkButtonClass(classValue){
-    obj = {
-        isArithmetic : false,
-        type : classValue,
+function checkButtonClass(button,input){
+    let classValue = button.classList.value ;
+    if(classValue == "digit"){
+        input.content = button.textContent;
+        input.isDigit = true;   
     }
-    if(classValue == "divides") {
-        obj.type = "/"; 
-        obj.isArithmetic = true;
+    else if(classValue == "dot"){
+        input.content = button.textContent;
+        input.isDecimal = true;
+    }
+    else if(classValue == "divides") {
+        input.content = "/"; 
+        input.isArithmetic = true;
     }    
-    if(classValue == "times") {
-        obj.type = "*"; 
-        obj.isArithmetic = true;
+    else if(classValue == "times") {
+        input.content = "*"; 
+        input.isArithmetic = true;
     }   
-    if(classValue == "adds") {
-        obj.type = "+"; 
-        obj.isArithmetic = true;
+    else if(classValue == "adds") {
+        input.content = "+"; 
+        input.isArithmetic = true;
     }   
-    if(classValue == "subtracts") {
-        obj.type = "-";
-        obj.isArithmetic = true;
+    else if(classValue == "subtracts") {
+        input.content = "-";
+        input.isArithmetic = true;
     } 
-    return obj;
+    else if(classValue == "clears"){
+        input.isClear = true;
+    }
+    else if(classValue == "deletes"){
+        input.isDelete = true;
+    }
+    else if(classValue == "equals"){
+        input.isEqual = true;
+    }
 }
+
+function checkInput(event){
+    input = {
+        isDigit : false,
+        isDecimal : false,
+        isClear : false,
+        isDelete : false,
+        isEqual : false,
+        isArithmetic : false,
+        content : "",
+    }
+    if(event.type == "click"){
+        checkButtonClass(event.target , input);
+    }
+    else if(event.type == "keydown"){
+
+    }
+    return input;
+}
+
 
 function clearArray(){
     while(cal_array.length > 0){
@@ -145,33 +178,33 @@ function evaluateAndDisplayResult(){
 
 
 function buttonHandler(event){
-    let button = checkButtonClass(event.target.classList.value);
-    if(button.type == "digit"){
-        if(checkValidDisplayLength()) addBufferAndDisplay(event.target.textContent);       
+    let input = checkInput(event);
+    if(input.isDigit){
+        if(checkValidDisplayLength()) addBufferAndDisplay(input.content);       
     }
-    else if(button.type == "dot"){
+    else if(input.isDecimal){
         if(checkDecimalAbsent()){
-            if(checkValidDisplayLength()) addBufferAndDisplay(event.target.textContent);
+            if(checkValidDisplayLength()) addBufferAndDisplay(input.content);
         }
     }
-    else if(button.type == "deletes"){
+    else if(input.isDelete){
         removeBufferAndDisplay();
     }
-    else if(button.type == "clears"){
+    else if(input.isClear){
         restartCal();
     }
-    else if(button.isArithmetic){
-        doArithmetic(button.type);
+    else if(input.isArithmetic){
+        doArithmetic(input.content);
     }
-    else if(button.type == "equals"){
+    else if(input.isEqual){
         evaluateAndDisplayResult();
     }
-    console.log(cal_array);
+    console.log(event,cal_array);
 }
 
-function test(event){
+function keyHandler(event){
     console.log(event,event.key);
 }
 
 buttonContainer.addEventListener("click",buttonHandler);
-body.addEventListener("keydown",test);
+body.addEventListener("keydown",keyHandler);
