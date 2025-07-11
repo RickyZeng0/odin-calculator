@@ -99,6 +99,32 @@ function checkButtonClass(button,input){
     }
 }
 
+function checkKeybroad(key , input){
+    const DIGIT = "0123456789";
+    const ARITHMETIC = "+-/*";
+    if(DIGIT.includes(key)){
+        input.content = key;
+        input.isDigit = true;
+    }
+    else if(key == "."){
+        input.content = key;
+        input.isDecimal = true;
+    }
+    else if(ARITHMETIC.includes(key)){
+        input.content = key;
+        input.isArithmetic = true;
+    }
+    else if(key == "Backspace"){
+        input.isDelete = true;
+    }
+    else if(key == "Delete"){
+        input.isClear = true;
+    }
+    else if(key == "=" || key == "Enter"){
+        input.isEqual = true;
+    }
+}
+
 function checkInput(event){
     input = {
         isDigit : false,
@@ -113,7 +139,7 @@ function checkInput(event){
         checkButtonClass(event.target , input);
     }
     else if(event.type == "keydown"){
-
+        checkKeybroad(event.key , input);
     }
     return input;
 }
@@ -177,7 +203,7 @@ function evaluateAndDisplayResult(){
 }
 
 
-function buttonHandler(event){
+function main(event){
     let input = checkInput(event);
     if(input.isDigit){
         if(checkValidDisplayLength()) addBufferAndDisplay(input.content);       
@@ -199,12 +225,8 @@ function buttonHandler(event){
     else if(input.isEqual){
         evaluateAndDisplayResult();
     }
-    console.log(event,cal_array);
+    console.log(cal_array);
 }
 
-function keyHandler(event){
-    console.log(event,event.key);
-}
-
-buttonContainer.addEventListener("click",buttonHandler);
-body.addEventListener("keydown",keyHandler);
+buttonContainer.addEventListener("click",main);
+body.addEventListener("keydown",main);
