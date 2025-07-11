@@ -1,6 +1,7 @@
 let num1 , operator , num2 ;
 const buttonContainer = document.querySelector(".button-container");
 const display = document.querySelector(".display");
+const body = document.querySelector("body");
 const MAX_DISPLAY_LENGTH = 16;
 let input_buffer = "";
 let cal_array = [];
@@ -42,14 +43,14 @@ function checkDecimalAbsent(){
     return false;
 }
 
-function addBufferAndDisplay(event){
-    input_buffer += event.target.textContent;
+function addBufferAndDisplay(content){
+    input_buffer += content;
     display.textContent = input_buffer;
 }
 
 //make sure the display will not overflow by limiting the input
 function checkValidDisplayLength(){
-    if(display.textContent.length <= MAX_DISPLAY_LENGTH) return true;
+    if(input_buffer.length < MAX_DISPLAY_LENGTH) return true;
     return false;
 }
 
@@ -146,11 +147,11 @@ function evaluateAndDisplayResult(){
 function main(event){
     let button = checkArithmetic(event.target.classList.value);
     if(button.type == "digit"){
-        if(checkValidDisplayLength()) addBufferAndDisplay(event);       
+        if(checkValidDisplayLength()) addBufferAndDisplay(event.target.textContent);       
     }
     else if(button.type == "dot"){
         if(checkDecimalAbsent()){
-            if(checkValidDisplayLength()) addBufferAndDisplay(event);
+            if(checkValidDisplayLength()) addBufferAndDisplay(event.target.textContent);
         }
     }
     else if(button.type == "deletes"){
@@ -168,4 +169,9 @@ function main(event){
     console.log(cal_array);
 }
 
+function test(event){
+    console.log(event,event.key);
+}
+
 buttonContainer.addEventListener("click",main);
+body.addEventListener("keydown",test);
