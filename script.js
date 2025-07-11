@@ -1,4 +1,3 @@
-let num1 , operator , num2 ;
 const buttonContainer = document.querySelector(".button-container");
 const display = document.querySelector(".display");
 const body = document.querySelector("body");
