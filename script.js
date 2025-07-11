@@ -62,7 +62,7 @@ function removeBufferAndDisplay(){
     }
 }
 
-function checkArithmetic(classValue){
+function checkButtonClass(classValue){
     obj = {
         isArithmetic : false,
         type : classValue,
@@ -144,8 +144,8 @@ function evaluateAndDisplayResult(){
 }
 
 
-function main(event){
-    let button = checkArithmetic(event.target.classList.value);
+function buttonHandler(event){
+    let button = checkButtonClass(event.target.classList.value);
     if(button.type == "digit"){
         if(checkValidDisplayLength()) addBufferAndDisplay(event.target.textContent);       
     }
@@ -173,5 +173,5 @@ function test(event){
     console.log(event,event.key);
 }
 
-buttonContainer.addEventListener("click",main);
+buttonContainer.addEventListener("click",buttonHandler);
 body.addEventListener("keydown",test);
